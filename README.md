@@ -24,7 +24,9 @@ This repository is configured to build on `macos-latest` using `xcodegen` and `x
 
 ## Unsigned build without certificate
 
-If signing secrets are not provided, the workflow now builds an unsigned Xcode archive and uploads it as `GamePigeonClone-xcarchive`. You can download that artifact and sign it later on a Mac or with a signing tool.
+If signing secrets are not provided, the workflow now builds an unsigned App bundle and packages it into `GamePigeonClone-unsigned.ipa`. You can download that artifact and sign it later on a Mac or with a signing tool.
+
+> Note: `AltStore` and other installers typically require a properly signed IPA. An unsigned IPA may still appear invalid for install until it is signed.
 ### How to run
 
 1. Push the repository to GitHub.

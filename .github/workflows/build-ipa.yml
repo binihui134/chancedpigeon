@@ -69,20 +69,29 @@ jobs:
           name: GamePigeonClone.ipa
           path: build/ipa/GamePigeonClone.ipa
 
-      - name: Build unsigned archive
+      - name: Build unsigned app
         if: ${{ steps.check_signing.outputs.signing == 'false' }}
         run: |
-          xcodebuild -project GamePigeonClone.xcodeproj -scheme GamePigeonClone -configuration Release -destination "generic/platform=iOS" -archivePath build/GamePigeonClone.xcarchive clean archive CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM="" CODE_SIGN_STYLE=Manual
+          xcodebuild -project GamePigeonClone.xcodeproj -scheme GamePigeonClone -configuration Release -sdk iphoneos -derivedDataPath build/DerivedData clean build CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" DEVELOPMENT_TEAM="" CODE_SIGN_STYLE=Manual
 
-      - name: Upload unsigned archive artifact
+      - name: Package unsigned IPA
+        if: ${{ steps.check_signing.outputs.signing == 'false' }}
+        run: |
+          mkdir -p build/Payload build/ipa
+          cp -R build/DerivedData/Build/Products/Release-iphoneos/GamePigeonClone.app build/Payload/
+          cd build
+          zip -rq ipa/GamePigeonClone-unsigned.ipa Payload
+        shell: bash
+
+      - name: Upload unsigned IPA artifact
         if: ${{ steps.check_signing.outputs.signing == 'false' }}
         uses: actions/upload-artifact@v4
         with:
-          name: GamePigeonClone-xcarchive
-          path: build/GamePigeonClone.xcarchive
+          name: GamePigeonClone-unsigned.ipa
+          path: build/ipa/GamePigeonClone-unsigned.ipa
 
       - name: No signing assets available
         if: ${{ steps.check_signing.outputs.signing == 'false' }}
         run: |
-          echo "Signing assets are missing, so the workflow produced an unsigned .xcarchive instead of an IPA."
-          echo "Download GamePigeonClone-xcarchive from the workflow artifacts and sign it later on a Mac or with Fastlane."
+          echo "Signing assets are missing, so the workflow produced an unsigned IPA instead of a signed IPA."
+          echo "Download GamePigeonClone-unsigned.ipa from the workflow artifacts and sign it later on a Mac or with Fastlane."

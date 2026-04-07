@@ -19,23 +19,38 @@ jobs:
       - name: Generate Xcode project
         run: xcodegen generate --spec project.yml
 
-      - name: Import signing certificate and provisioning profile
+      - name: Import signing certificate
+        if: ${{ secrets.P12_BASE64 != '' && secrets.P12_PASSWORD != '' }}
         uses: apple-actions/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.P12_BASE64 }}
           p12-password: ${{ secrets.P12_PASSWORD }}
+
+      - name: Import provisioning profile
+        if: ${{ secrets.PROVISIONING_PROFILE_BASE64 != '' }}
+        uses: apple-actions/import-provisioning-profiles@v1
+        with:
           provisioning-profile-base64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
 
       - name: Build archive
+        if: ${{ secrets.P12_BASE64 != '' && secrets.P12_PASSWORD != '' && secrets.PROVISIONING_PROFILE_BASE64 != '' && secrets.APPLE_TEAM_ID != '' && secrets.PROVISIONING_PROFILE_SPECIFIER != '' }}
         run: |
           xcodebuild -project GamePigeonClone.xcodeproj -scheme GamePigeonClone -configuration Release -destination "generic/platform=iOS" -archivePath build/GamePigeonClone.xcarchive clean archive DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} PROVISIONING_PROFILE_SPECIFIER="${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}" CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="Apple Development"
 
       - name: Export IPA
+        if: ${{ secrets.P12_BASE64 != '' && secrets.P12_PASSWORD != '' && secrets.PROVISIONING_PROFILE_BASE64 != '' && secrets.APPLE_TEAM_ID != '' && secrets.PROVISIONING_PROFILE_SPECIFIER != '' }}
         run: |
           xcodebuild -exportArchive -archivePath build/GamePigeonClone.xcarchive -exportOptionsPlist exportOptions.plist -exportPath build/ipa
 
       - name: Upload IPA artifact
+        if: ${{ secrets.P12_BASE64 != '' && secrets.P12_PASSWORD != '' && secrets.PROVISIONING_PROFILE_BASE64 != '' && secrets.APPLE_TEAM_ID != '' && secrets.PROVISIONING_PROFILE_SPECIFIER != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: GamePigeonClone.ipa
           path: build/ipa/GamePigeonClone.ipa
+
+      - name: Skip IPA build due to missing signing assets
+        if: ${{ secrets.P12_BASE64 == '' || secrets.P12_PASSWORD == '' || secrets.PROVISIONING_PROFILE_BASE64 == '' || secrets.APPLE_TEAM_ID == '' || secrets.PROVISIONING_PROFILE_SPECIFIER == '' }}
+        run: |
+          echo "Skipping IPA build because required signing secrets are missing."
+          echo "Add APPLE_TEAM_ID, P12_BASE64, P12_PASSWORD, PROVISIONING_PROFILE_BASE64, and PROVISIONING_PROFILE_SPECIFIER to run a signed build."

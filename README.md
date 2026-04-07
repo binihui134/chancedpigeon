@@ -20,6 +20,7 @@ This repository is configured to build on `macos-latest` using `xcodegen` and `x
 - `PROVISIONING_PROFILE_BASE64` — base64-encoded provisioning profile matching the app bundle ID
 - `PROVISIONING_PROFILE_SPECIFIER` — the name of the provisioning profile
 
+> Note: A signed IPA requires valid Apple signing assets. Without a certificate and provisioning profile, GitHub Actions cannot create a sideloadable IPA.
 ### How to run
 
 1. Push the repository to GitHub.

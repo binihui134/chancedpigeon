@@ -20,7 +20,7 @@ targets:
         exclude:
           - LaunchScreen.storyboard
     settings:
-      INFO_PLIST_FILE: Info.plist
+      INFOPLIST_FILE: Info.plist
       PRODUCT_BUNDLE_IDENTIFIER: com.chancedpigeon.GamePigeonClone
       SWIFT_VERSION: 5.9
       CODE_SIGN_STYLE: Manual

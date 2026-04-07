@@ -44,9 +44,13 @@ jobs:
 
       - name: Import provisioning profile
         if: ${{ steps.check_signing.outputs.signing == 'true' }}
-        uses: apple-actions/import-provisioning-profiles@v1
-        with:
-          provisioning-profile-base64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+          echo "$PROVISIONING_PROFILE_BASE64" | base64 --decode > "$HOME/Library/MobileDevice/Provisioning Profiles/${PROVISIONING_PROFILE_SPECIFIER}.mobileprovision"
+        shell: bash
+        env:
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
 
       - name: Build archive
         if: ${{ steps.check_signing.outputs.signing == 'true' }}

@@ -21,6 +21,10 @@ This repository is configured to build on `macos-latest` using `xcodegen` and `x
 - `PROVISIONING_PROFILE_SPECIFIER` — the name of the provisioning profile
 
 > Note: A signed IPA requires valid Apple signing assets. Without a certificate and provisioning profile, GitHub Actions cannot create a sideloadable IPA.
+
+## Unsigned build without certificate
+
+If signing secrets are not provided, the workflow now builds an unsigned Xcode archive and uploads it as `GamePigeonClone-xcarchive`. You can download that artifact and sign it later on a Mac or with a signing tool.
 ### How to run
 
 1. Push the repository to GitHub.

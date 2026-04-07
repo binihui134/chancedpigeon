@@ -1,0 +1,22 @@
+# Xcode
+build/
+*.xcworkspace
+*.xcuserstate
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+DerivedData/
+*.moved-aside
+*.pbxuser
+*.mode1v3
+*.perspectivev3
+*.xcuserstate
+
+# Swift Package Manager
+/.build/
+/*.xcworkspace
+
+# macOS
+.DS_Store
+
+# GitHub Actions
+build/

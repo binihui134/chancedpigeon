@@ -1,0 +1,25 @@
+name: GamePigeonClone
+options:
+  bundleIdPrefix: com.chancedpigeon
+  deploymentTarget:
+    iOS: "17.0"
+configs:
+  Debug: debug
+  Release: release
+settings:
+  PRODUCT_BUNDLE_IDENTIFIER: com.chancedpigeon.GamePigeonClone
+  SWIFT_VERSION: 5.9
+  CODE_SIGN_STYLE: Manual
+targets:
+  GamePigeonClone:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources/GamePigeonClone
+    settings:
+      INFO_PLIST_FILE: Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.chancedpigeon.GamePigeonClone
+      SWIFT_VERSION: 5.9
+      CODE_SIGN_STYLE: Manual
+      DEVELOPMENT_TEAM: YOUR_TEAM_ID

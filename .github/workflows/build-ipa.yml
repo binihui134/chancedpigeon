@@ -3,7 +3,7 @@ name: Build IPA
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -65,7 +65,7 @@ jobs:
       - name: Upload IPA artifact
         if: ${{ steps.check_signing.outputs.signing == 'true' }}
         uses: actions/upload-artifact@v4
-        with:
+        with: 
           name: GamePigeonClone.ipa
           path: build/ipa/GamePigeonClone.ipa
 

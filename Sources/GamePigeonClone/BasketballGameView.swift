@@ -14,7 +14,9 @@ struct BasketballGameView: View {
                         .foregroundColor(.secondary)
                 }
                 Spacer()
-                Button(action: model.reset) {
+                Button {
+                    model.reset(size: nil)
+                } label: {
                     Label("Restart", systemImage: "arrow.clockwise")
                 }
                 .buttonStyle(.borderedProminent)

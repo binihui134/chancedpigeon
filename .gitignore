@@ -11,6 +11,9 @@ DerivedData/
 *.perspectivev3
 *.xcuserstate
 
+#random stuff
+talkhere.txt
+
 # Swift Package Manager
 /.build/
 /*.xcworkspace

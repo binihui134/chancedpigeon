@@ -6,10 +6,10 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("Chanced Pigeon")
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Game Pigeon Clone")
                         .font(.largeTitle.weight(.bold))
-                    Text("A GamePigeon-style party game launcher")
+                    Text("A collection of classic party games inspired by GamePigeon.")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
@@ -24,10 +24,15 @@ struct ContentView: View {
             .padding(.top)
             .background(Color.black.opacity(0.95)).ignoresSafeArea()
             .navigationTitle("Games")
+            .navigationViewStyle(.stack)
             .sheet(item: $selectedGame) { game in
                 switch game {
                 case .miniGolf:
                     MiniGolfGameView()
+                case .basketball:
+                    BasketballGameView()
+                case .cupPong:
+                    CupPongGameView()
                 }
             }
         }

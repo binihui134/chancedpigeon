@@ -2,18 +2,38 @@ import SwiftUI
 
 enum GameType: String, Identifiable, CaseIterable {
     case miniGolf = "Mini Golf"
+    case basketball = "Basketball"
+    case cupPong = "Cup Pong"
 
     var id: String { rawValue }
     var subtitle: String {
         switch self {
         case .miniGolf:
-            return "Tap and drag to shoot your ball toward the hole."
+            return "Drag the ball to the hole in a relaxing mini golf round."
+        case .basketball:
+            return "Swipe to launch a shot through the hoop."
+        case .cupPong:
+            return "Aim for the cups and sink the ball." 
         }
     }
     var accent: Color {
         switch self {
         case .miniGolf:
             return Color.green
+        case .basketball:
+            return Color.orange
+        case .cupPong:
+            return Color.blue
+        }
+    }
+    var systemImage: String {
+        switch self {
+        case .miniGolf:
+            return "flag.checkered"
+        case .basketball:
+            return "sportscourt.fill"
+        case .cupPong:
+            return "cup.and.saucer.fill"
         }
     }
 }
@@ -32,7 +52,7 @@ struct GameSelectionView: View {
                             .fill(game.accent.opacity(0.2))
                             .frame(width: 72, height: 72)
                             .overlay(
-                                Image(systemName: "flag.checkered")
+                                Image(systemName: game.systemImage)
                                     .font(.system(size: 28, weight: .bold))
                                     .foregroundColor(game.accent)
                             )

@@ -1,12 +1,14 @@
 # Chanced Pigeon
 
-A SwiftUI iOS game launcher inspired by GamePigeon, with a playable mini-golf game and a GitHub Actions workflow to build a sideloadable IPA.
+A SwiftUI iOS game launcher inspired by GamePigeon, with multiple mini-games and a GitHub Actions workflow to build a sideloadable IPA.
 
 ## What is included
 
 - Native iOS SwiftUI app
-- Game selection UI with a mini-golf experience
+- Game selection UI with multiple playable games: mini golf, basketball, and cup pong
 - GitHub Actions workflow that generates an Xcode project and exports an IPA
+
+> Note: This is currently a standalone iOS app, not a Messages/iMessage extension. A full iMessage Messages extension can be added later.
 
 ## Build on GitHub Actions
 

@@ -21,6 +21,12 @@ struct MiniGolfGameView: View {
             }
             .padding(.horizontal)
 
+            Text("Drag the ball backward and release it to shoot toward the hole.")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             ZStack {
                 RoundedRectangle(cornerRadius: 28)
                     .fill(Color(.systemGray6))
